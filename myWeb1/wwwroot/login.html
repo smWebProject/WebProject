@@ -1,0 +1,32 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>login</title>
+    <link rel="stylesheet" href="user.css">
+
+</head>
+<body  dir="ltr" onload="func()">
+    <script src="login.js"></script>
+    <div>
+        <h1 id="name11">
+            Hello <div id="name"></div>
+            You are in
+        </h1>
+        <button onclick="update()">update</button>
+        <div id="updateUser" style="display:none">
+            <h3>user name:</h3>
+            <input type="email" id="userName"   />
+            <h3>first name:</h3>
+            <input type="text" id="firstName" />
+            <h3>last name:</h3>
+            <input type="text" id="lastName" />
+            <h3>password:</h3>
+            <input type="password" id="code" />
+            <button onclick="updateUser()" id="btnUpdateUser"> update</button>
+        </div>
+    </div>
+</body>
+</html>

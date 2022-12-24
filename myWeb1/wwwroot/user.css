@@ -1,0 +1,40 @@
+﻿body {
+    background-color: paleturquoise;
+    margin-left: 670px;
+    margin-top: 200px;
+    color: cadetblue;
+    font-family: 'Berlin Sans FB';
+}
+.input {
+    width: 200px;
+    height: 30px;
+}
+
+#btnLogIn {
+    margin-top: 100px;
+}
+#btnRegister {
+   //margin-left:200px;
+   margin-top:50px;
+}
+button {
+    width: 200px;
+    height: 40px;
+    background-color: lightgray;
+    font-size: larger;
+    border-radius: 40%;
+    color: cadetblue;
+    border-color: white;
+    font-family: 'Berlin Sans FB';
+}
+#name11 {
+   
+    text-align: justify;
+    
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 500%
+}
+#btnUpdateUser {
+    width: 100px;
+    height: 30px;
+}

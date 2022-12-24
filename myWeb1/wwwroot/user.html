@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>store</title>
+    <link rel="stylesheet" href="user.css">
+</head>
+<body dir="ltr" src="user.css">
+    <script src="user.js"></script>
+    <h1>user name</h1>
+    <input id="userNameEnter" type="text" class="input" /><br />
+    <h1>password</h1>
+    <input type="password" id="password" class="input" />
+    <br />
+    <button onclick="enter()" id="btnLogIn">log in</button>
+    <br />
+    <button onclick="show()" id="btnRegister">register</button>
+    <div id="newUser" style="display:none">
+        <h3>user name</h3>
+        <input type="text" id="userName" />
+        <h3>first name</h3>
+        <input type="text" id="firstName" />
+        <h3>last name</h3>
+        <input type="text" id="lastName" />
+        <h3>password</h3>
+        <input type="password" id="code" />
+        <button onclick="checkPassword()">check password</button>
+        <progress max="4" id="pass"></progress>
+        <button onclick="register()"> to register</button>
+    </div>
+
+
+</body>
+</html>
