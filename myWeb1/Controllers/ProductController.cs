@@ -18,7 +18,7 @@ namespace MyWeb.Controllers
         }
         // GET: api/<ProductController>
         [HttpGet]
-        public async Task<Product?> Get([FromQuery]string name, [FromQuery] int? price_from, [FromQuery] int? price_to, [FromQuery] int?[] categoryIds, [FromQuery] int start, [FromQuery] int limit, [FromQuery] string? direction = "ASC", string? orderBy = "price")
+        public async Task<Product[]> Get([FromQuery]string ?name, [FromQuery] int? price_from, [FromQuery] int? price_to, [FromQuery] int[] ?categoryIds, [FromQuery] int start, [FromQuery] int limit, [FromQuery] string? direction = "ASC", string? orderBy = "price")
         {
 
             var product = await _iProductService.GetProducts(name, price_from,price_to, categoryIds,start,limit,direction,orderBy);
