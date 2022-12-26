@@ -65,6 +65,7 @@ drawCategory= (category) => {
     var temp = document.getElementById("temp-category");
     var clone = temp.content.cloneNode(true);
     clone.querySelector(".OptionName").innerText = category.name;
-    document.body.appendChild(clone);
+    document.getElementById("categoryList").appendChild(clone);
+
 }
 document.addEventListener("load", load());

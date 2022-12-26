@@ -38,7 +38,7 @@ ul{
     font-family: arial;
     padding:15px;
     float:left;
-    height:550px;
+    height:600px;
     margin:6px;
 }
 
@@ -47,7 +47,7 @@ ul{
 }
 
 p.description{
-    height:70px;
+    height:110px;
 }
 .bar::before {
     content: 'my jewelry store';
@@ -75,6 +75,7 @@ p.description{
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+    display: block;
 }
 
 .card button:hover {
@@ -174,6 +175,7 @@ p.description{
 .nameFilter input {
     width: 70%;
     height: 24px;
+    position:sticky;
 }
 
 .filterBreak {
