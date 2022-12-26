@@ -38,29 +38,28 @@ getCategories = async () => {
 drawProducts = (data) => {
     for (var i = 0; i < data.length; i++) {
         drawProduct(data[i]);
-        console.log(data[i]);
+        //console.log(data[i]);
     }
 
 }
 drawProduct = (product) => {
-    console.log(product);
+    //console.log(product);
     var temp = document.getElementById("temp-card");
     var clone = temp.content.cloneNode(true);
-    console.log(product.name);
+    //console.log(product.name);
     clone.querySelector("h1").innerText = product.name;
     clone.querySelector(".price").innerText = product.price;
     clone.querySelector(".description").innerText = product.description;
     clone.querySelector("img").src = "/images/" + product.imageUrl;
-    document.body.appendChild(clone);
+    document.getElementById("PoductList").appendChild(clone);
 }
 drawCategories = (data) => {
     for (var i = 0; i < data.length; i++) {
-
         drawCategory(data[i]);
     }
 }
 drawCategory = (category) => {
-    console.log(category);
+    //console.log(category);
     var temp = document.getElementById("temp-category");
     var clone = temp.content.cloneNode(true);
     clone.querySelector(".OptionName").innerText = category.name;
@@ -68,14 +67,11 @@ drawCategory = (category) => {
     document.getElementById("categoryList").appendChild(clone);
 
 }
-filterProducts =async () => {
+filterProducts = async () => {
     var name = document.getElementById("nameSearch").value;
-   // name = name=='' ? null : name;
     var minPrice = document.getElementById("minPrice").value;
-   // minPrice = minPrice == '' ? null : minPrice;
     console.log(minPrice);
     var maxPrice = document.getElementById("maxPrice").value;
-   // maxPrice = maxPrice == '' ? null : maxPrice;
     var categoryList = document.getElementsByClassName("opt");
     var start = 1;
     var limit = 20;
@@ -85,12 +81,10 @@ filterProducts =async () => {
     var categoryIds = "";
     for (var i = 0; i < categoryList.length; i++) {
         if (categoryList[i].checked) {
-            categoryIds.concat("&categoryIds", categoryList[i].value);
+            categoryIds.concat("&categoryIds=", categoryList[i].value);
             console.log(categoryIds);
         }
     }
-    //categoryIds = categoryIds.length == 0 ? null : categoryIds;
-
     const url = `Api/Product/?name=${name}&price_from=${minPrice}&price_to=${maxPrice}${categoryIds}&start=${start}&limit=${limit}&direction=${direction}&orderBy=${orderBy}`;
     const res = await fetch(url);
     console.log(res);
@@ -103,10 +97,26 @@ filterProducts =async () => {
     else {
         const data = await res.json();
         console.log(data.length);
-
+        removeProducts();
         drawProducts(data);
     }
 }
+removeProducts = () => {
+    //document.getElementById("PoductList").remove();
+    //var div1 = document.createElement("div");
+    //div1.setAttribute("id", "PoductList");
+    //document.body.appendChild(div1);
+
+    var cards = document.getElementsByClassName("card");
+    console.log(cards);
+    for (var i = cards.length; i >0; i--) {
+        console.log(cards[0]);
+        cards[0].remove();
+    }
+
+
+
+}
+
 document.addEventListener("load", load());
 
-/*[FromQuery]string ? name, [FromQuery] int ? price_from, [FromQuery] int ? price_to, [FromQuery] int[] ? categoryIds, [FromQuery] int start, [FromQuery] int limit, [FromQuery] string ? direction = "ASC", string ? orderBy = "price")*/
