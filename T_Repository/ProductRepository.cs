@@ -20,7 +20,7 @@ namespace T_Repository
             {
                 var query = _context.Products.Where(product => (name == null ? (true) : (product.Name.Contains(name)))
                   && ((price_from == null) ? (true) : (product.Price >= price_from))
-                 /*&& (categoryIds.Length == 0) ? (true) : (categoryIds.Contains(product.Category))*/
+                 && (categoryIds.Length == 0) ? (true) : (categoryIds.Contains(product.CategoryId))
                   && ((price_to == null) ? (true) : (product.Price <= price_to))).OrderBy(product => orderBy);
                 Console.WriteLine(query);
 

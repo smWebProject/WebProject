@@ -15,6 +15,7 @@ getProducts = async () => {
     else {
         const data = await res.json();
         console.log(data);
+        sessionStorage.setItem("products", JSON.stringify(data));
         drawProducts(data);
     }
 }
@@ -31,11 +32,26 @@ getCategories = async () => {
     else {
         const data = await res.json();
         console.log(data);
+        fillProductsInCategory(data);
         drawCategories(data);
-
     }
 }
+fillProductsInCategory = (data) => {
+    var products1 = sessionStorage.getItem("products");
+    var products = JSON.parse(products1);
+    console.log(products);
+    console.log(data);
+    for (var category = 0; category < data.length; category++) {
+        for (var product = 0; product < products.length; product++) {
+            if (products[product].categoryId == data[category].id) {
+                data[category].products.push(products[product]);
+            }
+        }
+    }
+    console.log(data);
+}
 drawProducts = (data) => {
+    document.getElementById("counter").innerText = data.length;
     for (var i = 0; i < data.length; i++) {
         drawProduct(data[i]);
         //console.log(data[i]);
@@ -63,6 +79,7 @@ drawCategory = (category) => {
     var temp = document.getElementById("temp-category");
     var clone = temp.content.cloneNode(true);
     clone.querySelector(".OptionName").innerText = category.name;
+    clone.querySelector(".Count").innerText = `(${category.products.length})`;
     clone.querySelector(".opt").value = category.id;
     document.getElementById("categoryList").appendChild(clone);
 
@@ -81,7 +98,7 @@ filterProducts = async () => {
     var categoryIds = "";
     for (var i = 0; i < categoryList.length; i++) {
         if (categoryList[i].checked) {
-            categoryIds.concat("&categoryIds=", categoryList[i].value);
+            categoryIds += `&categoryIds=${categoryList[i].value}`;
             console.log(categoryIds);
         }
     }
@@ -101,6 +118,7 @@ filterProducts = async () => {
         drawProducts(data);
     }
 }
+
 removeProducts = () => {
     //document.getElementById("PoductList").remove();
     //var div1 = document.createElement("div");
@@ -109,7 +127,7 @@ removeProducts = () => {
 
     var cards = document.getElementsByClassName("card");
     console.log(cards);
-    for (var i = cards.length; i >0; i--) {
+    for (var i = cards.length; i > 0; i--) {
         console.log(cards[0]);
         cards[0].remove();
     }
