@@ -8,7 +8,7 @@ namespace T_Repository
 {
     public interface IProductRepository
     {
-        Task<Product[]> GetProducts(int[]? categoryIds,string? name, int? price_from, int? price_to, int start, int limit, string? direction = "ASC", string? orderBy = "price");
+        Task<Product[]> GetProducts(string? name, int? price_from, int? price_to, int[]? categoryIds, int start, int limit, string? direction = "ASC", string? orderBy = "price");
 
     }
 }

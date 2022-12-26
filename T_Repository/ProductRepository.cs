@@ -14,7 +14,7 @@ namespace T_Repository
         {
             _context = context;
         }
-        public async Task<Product[]> GetProducts(int [] ?categoryIds, string ?name, int? price_from, int? price_to,  int start, int limit, string? direction = "ASC", string? orderBy = "price")
+        public async Task<Product[]> GetProducts( string ?name, int? price_from, int? price_to, int[]? categoryIds, int start, int limit, string? direction = "ASC", string? orderBy = "price")
         {
 
             {
