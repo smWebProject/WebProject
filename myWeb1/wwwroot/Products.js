@@ -68,7 +68,6 @@ drawProduct = (product) => {
     clone.querySelector(".description").innerText = product.description;
     clone.querySelector("img").src = "/images/" + product.imageUrl;
     clone.querySelector("button").setAttribute("value", product.id);
-    clone.querySelector("button").setAttribute("id", product.id);
     document.getElementById("PoductList").appendChild(clone);
 
 }
@@ -142,7 +141,7 @@ addToCart = (id) => {
         if (products[i].id == id) {
             console.log(products[i])
             if (sessionStorage.getItem("selectedProducts")) {
-                var allSelectedProducts1 = JSON.parse( sessionStorage.getItem("selectedProducts"));
+                var allSelectedProducts1 = JSON.parse(sessionStorage.getItem("selectedProducts"));
                 console.log(allSelectedProducts1)
                 allSelectedProducts1.push(products[i]);
                 console.log(allSelectedProducts1)
