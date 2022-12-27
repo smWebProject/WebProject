@@ -13,10 +13,10 @@ getProducts = async () => {
         return;
     }
     else {
-        const data = await res.json();
-        console.log(data);
-        sessionStorage.setItem("products", JSON.stringify(data));
-        drawProducts(data);
+        const products = await res.json();
+        console.log(products);
+        sessionStorage.setItem("products", JSON.stringify(products));
+        drawProducts(products);
     }
 }
 getCategories = async () => {
@@ -30,30 +30,30 @@ getCategories = async () => {
         return;
     }
     else {
-        const data = await res.json();
-        console.log(data);
-        fillProductsInCategory(data);
-        drawCategories(data);
+        const categories = await res.json();
+        console.log(categories);
+        fillProductsInCategory(categories);
+        drawCategories(categories);
     }
 }
-fillProductsInCategory = (data) => {
-    var products1 = sessionStorage.getItem("products");
-    var products = JSON.parse(products1);
+fillProductsInCategory = (categories) => {
+    var savedProducts = sessionStorage.getItem("products");
+    var products = JSON.parse(savedProducts);
     console.log(products);
-    console.log(data);
-    for (var category = 0; category < data.length; category++) {
+    console.log(categories);
+    for (var category = 0; category < categories.length; category++) {
         for (var product = 0; product < products.length; product++) {
-            if (products[product].categoryId == data[category].id) {
-                data[category].products.push(products[product]);
+            if (products[product].categoryId == categories[category].id) {
+                categories[category].products.push(products[product]);
             }
         }
     }
-    console.log(data);
+    console.log(categories);
 }
-drawProducts = (data) => {
-    document.getElementById("counter").innerText = data.length;
-    for (var i = 0; i < data.length; i++) {
-        drawProduct(data[i]);
+drawProducts = (products) => {
+    document.getElementById("counter").innerText = products.length;
+    for (var i = 0; i < products.length; i++) {
+        drawProduct(products[i]);
         //console.log(data[i]);
     }
 
@@ -67,11 +67,14 @@ drawProduct = (product) => {
     clone.querySelector(".price").innerText = product.price;
     clone.querySelector(".description").innerText = product.description;
     clone.querySelector("img").src = "/images/" + product.imageUrl;
+    clone.querySelector("button").setAttribute("value", product.id);
+    clone.querySelector("button").setAttribute("id", product.id);
     document.getElementById("PoductList").appendChild(clone);
+
 }
-drawCategories = (data) => {
-    for (var i = 0; i < data.length; i++) {
-        drawCategory(data[i]);
+drawCategories = (categories) => {
+    for (var i = 0; i < categories.length; i++) {
+        drawCategory(categories[i]);
     }
 }
 drawCategory = (category) => {
@@ -120,10 +123,6 @@ filterProducts = async () => {
 }
 
 removeProducts = () => {
-    //document.getElementById("PoductList").remove();
-    //var div1 = document.createElement("div");
-    //div1.setAttribute("id", "PoductList");
-    //document.body.appendChild(div1);
 
     var cards = document.getElementsByClassName("card");
     console.log(cards);
@@ -132,9 +131,36 @@ removeProducts = () => {
         cards[0].remove();
     }
 
-
+}
+addToCart = (id) => {
+    
+    console.log(id);
+    var productsJson = sessionStorage.getItem("products");
+    var products = JSON.parse(productsJson);
+    var counter = 0;
+    for (var i = 0; i < products.length; i++) {
+        if (products[i].id == id) {
+            console.log(products[i])
+            if (sessionStorage.getItem("selectedProducts")) {
+                var allSelectedProducts1 = JSON.parse( sessionStorage.getItem("selectedProducts"));
+                console.log(allSelectedProducts1)
+                allSelectedProducts1.push(products[i]);
+                console.log(allSelectedProducts1)
+                counter = allSelectedProducts1.length;
+                sessionStorage.setItem("selectedProducts", JSON.stringify(allSelectedProducts1));
+                console.log(allSelectedProducts1)
+            }
+            else { 
+                var allSelectedProducts = []
+                allSelectedProducts.push(products[i])
+                counter = 1;
+                sessionStorage.setItem("selectedProducts", JSON.stringify(allSelectedProducts))
+            }
+        }
+        
+    }
+    document.getElementById("ItemsCountText").innerHTML = counter;
 
 }
-
 document.addEventListener("load", load());
 

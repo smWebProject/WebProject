@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using T_Repository;
+using Entities;
 
 namespace Service
 {

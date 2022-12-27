@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace T_Repository
+namespace Entities
 {
     public partial class Product
     {

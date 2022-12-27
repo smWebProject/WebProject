@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Entities;
 
 namespace MyWebSite.Controllers
 {

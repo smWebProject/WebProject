@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Entities;
+
 namespace T_Repository
 {
     public class UserRepository : IUserRepository

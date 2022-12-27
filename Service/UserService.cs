@@ -1,6 +1,7 @@
 ﻿namespace Service
 {
     using T_Repository;
+    using Entities;
     using System;
     using System.Text.Json;
 

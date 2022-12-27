@@ -6,7 +6,7 @@ using T_Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<WebSiteContext>(option => option.UseSqlServer("Data Source=Schlezinger;Initial Catalog=WebSite;Integrated Security=True"));
+builder.Services.AddDbContext<WebSiteContext>(option => option.UseSqlServer("Data Source=DESKTOP-QBHR7E5;Initial Catalog=WebSite;Integrated Security=True"));
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserService, UserService>();

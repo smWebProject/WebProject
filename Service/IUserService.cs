@@ -1,4 +1,4 @@
-﻿using T_Repository;
+﻿using Entities;
 
 namespace Service
 {
