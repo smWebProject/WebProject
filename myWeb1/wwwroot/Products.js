@@ -37,12 +37,12 @@ getCategories = async () => {
     }
 }
 fillProductsInCategory = (categories) => {
-    var savedProducts = sessionStorage.getItem("products");
-    var products = JSON.parse(savedProducts);
+    const savedProducts = sessionStorage.getItem("products");
+    const products = JSON.parse(savedProducts);
     console.log(products);
     console.log(categories);
-    for (var category = 0; category < categories.length; category++) {
-        for (var product = 0; product < products.length; product++) {
+    for (let category = 0; category < categories.length; category++) {
+        for (let product = 0; product < products.length; product++) {
             if (products[product].categoryId == categories[category].id) {
                 categories[category].products.push(products[product]);
             }
@@ -52,17 +52,14 @@ fillProductsInCategory = (categories) => {
 }
 drawProducts = (products) => {
     document.getElementById("counter").innerText = products.length;
-    for (var i = 0; i < products.length; i++) {
+    for (let i = 0; i < products.length; i++) {
         drawProduct(products[i]);
-        //console.log(data[i]);
     }
 
 }
 drawProduct = (product) => {
-    //console.log(product);
-    var temp = document.getElementById("temp-card");
-    var clone = temp.content.cloneNode(true);
-    //console.log(product.name);
+    const temp = document.getElementById("temp-card");
+    const clone = temp.content.cloneNode(true);
     clone.querySelector("h1").innerText = product.name;
     clone.querySelector(".price").innerText = product.price;
     clone.querySelector(".description").innerText = product.description;
@@ -72,14 +69,13 @@ drawProduct = (product) => {
 
 }
 drawCategories = (categories) => {
-    for (var i = 0; i < categories.length; i++) {
+    for (let i = 0; i < categories.length; i++) {
         drawCategory(categories[i]);
     }
 }
 drawCategory = (category) => {
-    //console.log(category);
-    var temp = document.getElementById("temp-category");
-    var clone = temp.content.cloneNode(true);
+    const temp = document.getElementById("temp-category");
+    const clone = temp.content.cloneNode(true);
     clone.querySelector(".OptionName").innerText = category.name;
     clone.querySelector(".Count").innerText = `(${category.products.length})`;
     clone.querySelector(".opt").value = category.id;
@@ -87,18 +83,17 @@ drawCategory = (category) => {
 
 }
 filterProducts = async () => {
-    var name = document.getElementById("nameSearch").value;
-    var minPrice = document.getElementById("minPrice").value;
-    console.log(minPrice);
-    var maxPrice = document.getElementById("maxPrice").value;
-    var categoryList = document.getElementsByClassName("opt");
-    var start = 1;
-    var limit = 20;
-    var direction = "ASC";
-    var orderBy = "price";
+    const name = document.getElementById("nameSearch").value;
+    const minPrice = document.getElementById("minPrice").value;
+    const maxPrice = document.getElementById("maxPrice").value;
+    const categoryList = document.getElementsByClassName("opt");
+    const start = 1;
+    const limit = 20;
+    const direction = "ASC";
+    const orderBy = "price";
     console.log(categoryList[0].checked);
-    var categoryIds = "";
-    for (var i = 0; i < categoryList.length; i++) {
+    let categoryIds = "";
+    for (let i = 0; i < categoryList.length; i++) {
         if (categoryList[i].checked) {
             categoryIds += `&categoryIds=${categoryList[i].value}`;
             console.log(categoryIds);
@@ -123,9 +118,9 @@ filterProducts = async () => {
 
 removeProducts = () => {
 
-    var cards = document.getElementsByClassName("card");
+    const cards = document.getElementsByClassName("card");
     console.log(cards);
-    for (var i = cards.length; i > 0; i--) {
+    for (let i = cards.length; i > 0; i--) {
         console.log(cards[0]);
         cards[0].remove();
     }
@@ -134,14 +129,14 @@ removeProducts = () => {
 addToCart = (id) => {
     
     console.log(id);
-    var productsJson = sessionStorage.getItem("products");
-    var products = JSON.parse(productsJson);
-    var counter = 0;
-    for (var i = 0; i < products.length; i++) {
+    const productsJson = sessionStorage.getItem("products");
+    const products = JSON.parse(productsJson);
+    let counter = 0;
+    for (let i = 0; i < products.length; i++) {
         if (products[i].id == id) {
             console.log(products[i])
             if (sessionStorage.getItem("selectedProducts")) {
-                var allSelectedProducts1 = JSON.parse(sessionStorage.getItem("selectedProducts"));
+                const allSelectedProducts1 = JSON.parse(sessionStorage.getItem("selectedProducts"));
                 console.log(allSelectedProducts1)
                 allSelectedProducts1.push(products[i]);
                 console.log(allSelectedProducts1)
@@ -150,7 +145,7 @@ addToCart = (id) => {
                 console.log(allSelectedProducts1)
             }
             else { 
-                var allSelectedProducts = []
+                let allSelectedProducts = []
                 allSelectedProducts.push(products[i])
                 counter = 1;
                 sessionStorage.setItem("selectedProducts", JSON.stringify(allSelectedProducts))

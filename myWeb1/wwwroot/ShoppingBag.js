@@ -1,32 +1,34 @@
 ﻿load = () => {
-    var selectedProductsJson = sessionStorage.getItem("selectedProducts");
-    var selectedProducts = JSON.parse(selectedProductsJson);
-    //drawSelectedProducts(selectedProducts)
+    const selectedProductsJson = sessionStorage.getItem("selectedProducts");
+    const selectedProducts = JSON.parse(selectedProductsJson);
+    drawSelectedProducts(selectedProducts)
     total(selectedProducts)
     console.log(selectedProducts);
 }
 drawSelectedProducts = (selectedProducts) => {
     console.log(selectedProducts)
-    for (var i = 0; i < selectedProducts.length; i++) {
+    for (let i = 0; i < selectedProducts.length; i++) {
         console.log(selectedProducts[i]);
         drawSelectedProduct(selectedProducts[i]);
     }
 }
 drawSelectedProduct = (selectedProduct) => {
-    var temp = document.getElementsByClassName("xx");
-    var clone = temp.content.cloneNode(true);
-    clone.querySelector(".image").src = "/images/" + selectedProduct.imageUrl;
+    const temp = document.getElementById("temp-row");
+    const clone = temp.content.cloneNode(true);
+    let imageurl = "/images/" + selectedProduct.imageUrl;
+    const stringImageUrl = JSON.stringify(imageurl);
+    console.log(JSON.stringify(imageurl));
+    clone.querySelector(".image").style.backgroundImage = `url(${ stringImageUrl })`;
     clone.querySelector(".itemName").innerText = selectedProduct.name;
     clone.querySelector(".itemNumber").innerText = selectedProduct.id;
-    document.getElementsByTagName("tbody").appendChild(clone);
+    document.getElementsByTagName("tbody")[0].appendChild(clone);
 }
 total = (selectedProducts) => {
     document.getElementById("itemCount").innerText = selectedProducts.length;
-    var totalPrice = 0;
-    for (var i = 0; i < selectedProducts.length; i++) {
+    let totalPrice = 0;
+    for (let i = 0; i < selectedProducts.length; i++) {
         totalPrice += selectedProducts[i].price;
     }
     document.getElementById("totalAmount").innerText = totalPrice;
 
 }
-document.addEventListener("load", load());

@@ -13,7 +13,7 @@ namespace Entities
         }
 
         public int Id { get; set; }
-        public DateTime Date { get; set; }= DateTime.UtcNow.ToLocalTime();
+        public DateTime Date { get; set; }
         public int Price { get; set; } 
         public int UserId { get; set; }
         [JsonIgnore]

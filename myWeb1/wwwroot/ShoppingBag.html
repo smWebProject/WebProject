@@ -5,7 +5,7 @@
     <title></title>
     <link href="ShoppingBag.css" rel="stylesheet" />
     <script src="ShoppingBag.js"></script>
-    <template id="temp-row" class="xx">
+    <template id="temp-row" >
         <tr class="item-row">
             <td class="imageColumn"><a rel="lightbox" href="#"><div class="image"></div></a></td>
             <td class="descriptionColumn">
@@ -23,7 +23,7 @@
         </tr>
     </template>
 </head>
-<body>
+<body onload="load()">
     <div class="cart">
         <div id="title">
             <h1> סל קניות </h1>
