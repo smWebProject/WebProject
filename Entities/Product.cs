@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Entities
 {
@@ -16,8 +17,8 @@ namespace Entities
         public int Price { get; set; }
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
-
-        public virtual Category Category { get; set; } = null!;
+        [JsonIgnore]
+        public virtual Category? Category { get; set; } = null!;
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }
