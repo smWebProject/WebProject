@@ -9,8 +9,6 @@ func = () => {
     document.getElementById("code").value = jsonData.code;
 }
 update = () => {
-    //window.document.getElementById("name").innerHTML = sessionStorage.getItem("name");
-
     document.getElementById("updateUser").style.display = "block";
 }
 updateUser = async () => {
@@ -37,5 +35,9 @@ updateUser = async () => {
 
     alert("update");
 
+
+}
+goToProducts = () => {
+    window.location.href = "Products.html";
 
 }

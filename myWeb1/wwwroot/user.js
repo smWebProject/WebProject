@@ -21,10 +21,8 @@
 
         console.log(data[0]);
         window.location.href = "login.html";
-        //window.sessionStorage.setItem("user", `${userName}`);
         window.sessionStorage.setItem("user", JSON.stringify(data));       
         window.location.href = "login.html";
-
     }
 }
 
