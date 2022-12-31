@@ -18,7 +18,7 @@ namespace T_Repository
         public async Task<IEnumerable<Category?>> GetAllCategories()
         {
             List<Category> Categorys = await _context.Categories
-              .Include(category => category.Products).ToListAsync();
+             .Include(category => category.Products).ToListAsync();
             return Categorys;
         }
     }
