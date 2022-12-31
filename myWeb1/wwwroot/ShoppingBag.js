@@ -32,17 +32,28 @@ total = (selectedProducts) => {
     document.getElementById("totalAmount").innerText = totalPrice;
 
 }
-placeOrder = async() => {
+placeOrder = async () => {
     let price = document.getElementById("totalAmount").innerText;
-    let userId = 1;
+    userJson = sessionStorage.getItem("user");
+    userParse = JSON.parse(userJson);
+    let userId = userParse.id;
     orderItems = [];
     orderItemsJson = sessionStorage.getItem("selectedProducts");
     orderItemsParse = JSON.parse(orderItemsJson);
+   
+
     console.log(orderItemsParse)
-    for (var i = 0; i < orderItemsParse.length; i++) {
+    for (let i = 0; i < orderItemsParse.length; i++) {
+        let amount = 0;
+        for (let j = 0; j < orderItemsParse.length; j++) {
+            if (orderItemsParse[i].id == orderItemsParse[j].id) {
+                amount++;
+            }
+        }
+
         let orderItem={
             "ProductId": orderItemsParse[i].id,
-             "Amount":1
+            "Amount": amount
         }
         orderItems.push(orderItem);
     }

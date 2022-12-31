@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using NLog.Web;
 using Service;
 using T_Repository;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var connectionString = builder.Configuration.GetConnectionString("ShulamitHome");
+builder.Host.UseNLog();
 // Add services to the container.
-builder.Services.AddDbContext<WebSiteContext>(option => option.UseSqlServer("Data Source=Schlezinger;Initial Catalog=WebSite;Integrated Security=True"));
+builder.Services.AddDbContext<WebSiteContext>(option => option.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -29,7 +31,6 @@ if(app.Environment.IsDevelopment())
 }
 
 
-
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
@@ -37,6 +38,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseAuthorization();
+
 
 app.MapControllers();
 

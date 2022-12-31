@@ -17,25 +17,9 @@ namespace T_Repository
         }
         public async Task<IEnumerable<Category?>> GetAllCategories()
         {
-            var list = await (from c in _context.Categories
-                              select c).ToListAsync();
-
-            //foreach (var category in list)
-            //{
-            //    foreach (var item in _context.Products)
-            //    {
-            //        if (item.CategoryId==category.Id)
-            //        {
-            //             category.Products.Add(item);
-            //        }
-            //    }
-            //}
-
-            return list;
+            List<Category> Categorys = await _context.Categories
+              .Include(category => category.Products).ToListAsync();
+            return Categorys;
         }
-        //public async Task<Category?> GetCategories(int?[] categoryIds)
-        //{
-        //    return null;
-        //}
     }
 }

@@ -12,18 +12,27 @@ namespace MyWebSite.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _iUserService;
-
-        public UserController(IUserService x)
+        ILogger<UserController> _logger;    
+        public UserController(IUserService x, ILogger<UserController> logger)
         {
             _iUserService = x;
+            _logger = logger;   
         }
 
         // GET: api/<UserController>
         [HttpGet]
         public async Task<User?> Get([FromQuery] string userName, [FromQuery] string code)
         {
-            var user=await _iUserService.GetUsers(userName, code);
-            return user;
+            _logger.LogInformation("user" + userName + "failed to log in");
+            try
+            {
+                var user = await _iUserService.GetUsers(userName, code);
+                return user;
+            }
+            catch (Exception ex) {
+                _logger.LogError("Error Happenned!!!",ex.Message,ex.StackTrace);
+                return null;    
+            }
         }
 
         // POST api/<UserController>

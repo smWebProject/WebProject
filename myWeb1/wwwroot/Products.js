@@ -32,24 +32,10 @@ getCategories = async () => {
     else {
         const categories = await res.json();
         console.log(categories);
-        fillProductsInCategory(categories);
         drawCategories(categories);
     }
 }
-fillProductsInCategory = (categories) => {
-    const savedProducts = sessionStorage.getItem("products");
-    const products = JSON.parse(savedProducts);
-    console.log(products);
-    console.log(categories);
-    for (let category = 0; category < categories.length; category++) {
-        for (let product = 0; product < products.length; product++) {
-            if (products[product].categoryId == categories[category].id) {
-                categories[category].products.push(products[product]);
-            }
-        }
-    }
-    console.log(categories);
-}
+
 drawProducts = (products) => {
     document.getElementById("counter").innerText = products.length;
     for (let i = 0; i < products.length; i++) {
@@ -77,7 +63,7 @@ drawCategory = (category) => {
     const temp = document.getElementById("temp-category");
     const clone = temp.content.cloneNode(true);
     clone.querySelector(".OptionName").innerText = category.name;
-    clone.querySelector(".Count").innerText = `(${category.products.length})`;
+    clone.querySelector(".Count").innerText = category.products.length;
     clone.querySelector(".opt").value = category.id;
     document.getElementById("categoryList").appendChild(clone);
 
