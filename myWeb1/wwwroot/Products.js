@@ -1,7 +1,18 @@
 ﻿load = () => {
     getProducts();
     getCategories();
+    checkCart();
 }
+checkCart = () => {
+    let selectedProductsJson = sessionStorage.getItem("selectedProducts");
+    if (selectedProductsJson) {
+        let length = JSON.parse(selectedProductsJson).length;
+        document.getElementById("ItemsCountText").innerText = length;
+        console.log(document.getElementById("ItemsCountText").innerText);
+
+    }
+}
+
 getProducts = async () => {
     const url = "Api/Product";
     const res = await fetch(url);
@@ -142,5 +153,5 @@ addToCart = (id) => {
     document.getElementById("ItemsCountText").innerHTML = counter;
 
 }
-document.addEventListener("load", load());
+//document.addEventListener("load", load());
 

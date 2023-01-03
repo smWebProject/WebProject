@@ -9,10 +9,10 @@ drawSelectedProducts = (selectedProducts) => {
     console.log(selectedProducts)
     for (let i = 0; i < selectedProducts.length; i++) {
         console.log(selectedProducts[i]);
-        drawSelectedProduct(selectedProducts[i]);
+        drawSelectedProduct(selectedProducts[i],i);
     }
 }
-drawSelectedProduct = (selectedProduct) => {
+drawSelectedProduct = (selectedProduct,position) => {
     const temp = document.getElementById("temp-row");
     const clone = temp.content.cloneNode(true);
     let imageurl = "/images/" + selectedProduct.imageUrl;
@@ -21,6 +21,10 @@ drawSelectedProduct = (selectedProduct) => {
     clone.querySelector(".image").style.backgroundImage = `url(${ stringImageUrl })`;
     clone.querySelector(".itemName").innerText = selectedProduct.name;
     clone.querySelector(".itemNumber").innerText = selectedProduct.id;
+    clone.querySelector(".price").innerText = selectedProduct.price + "₪";
+    clone.querySelector(".DeleteButton").value = position;
+    clone.querySelector(".viewDetails").innerText = selectedProduct.description;
+
     document.getElementsByTagName("tbody")[0].appendChild(clone);
 }
 total = (selectedProducts) => {
@@ -40,22 +44,27 @@ placeOrder = async () => {
     orderItems = [];
     orderItemsJson = sessionStorage.getItem("selectedProducts");
     orderItemsParse = JSON.parse(orderItemsJson);
-   
-
-    console.log(orderItemsParse)
+    let maxId = 0;
+    let countItems = [];
     for (let i = 0; i < orderItemsParse.length; i++) {
-        let amount = 0;
-        for (let j = 0; j < orderItemsParse.length; j++) {
-            if (orderItemsParse[i].id == orderItemsParse[j].id) {
-                amount++;
+        if (orderItemsParse[i].id > maxId)
+            maxId = orderItemsParse[i].id;
+    }
+    for (let i = 0; i <= maxId; i++) {
+        countItems.push(0);
+    }
+    console.log(countItems);
+    for (let i = 0; i < orderItemsParse.length; i++) {
+        countItems[orderItemsParse[i].id]++;
+    }
+    for (let i = 0; i < countItems.length; i++) {
+        if (countItems[i] != 0) {
+            let orderItem = {
+                "ProductId":i,
+                "Amount": countItems[i]
             }
+            orderItems.push(orderItem);
         }
-
-        let orderItem={
-            "ProductId": orderItemsParse[i].id,
-            "Amount": amount
-        }
-        orderItems.push(orderItem);
     }
     const order = {
         "Date": new Date(),
@@ -63,7 +72,6 @@ placeOrder = async () => {
         "UserId": userId,
         "OrderItems":orderItems
     }
-    console.log(order)
     const res = await fetch("https://localhost:44328/api/Order", {
         headers: { "content-type": "application/json;" },
         method: 'POST',
@@ -80,3 +88,23 @@ placeOrder = async () => {
     alert("the order complited");
 
 }
+
+removeSelectedProduct = (value) => {
+    orderItemsJson = sessionStorage.getItem("selectedProducts");
+    orderItemsParse = JSON.parse(orderItemsJson);
+    console.log(orderItemsParse)
+    orderItemsParse.splice(value, value + 1);
+    sessionStorage.setItem("selectedProducts", JSON.stringify(orderItemsParse))
+    removeSelectedProducts();
+    load();
+}
+removeSelectedProducts = () => {
+    const selectedProducts = document.getElementsByClassName("item-row");
+    console.log(selectedProducts);
+    for (let i = selectedProducts.length; i > 0; i--) {
+        console.log(selectedProducts[0]);
+        selectedProducts[0].remove();
+    }
+
+}
+

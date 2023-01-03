@@ -23,16 +23,17 @@ namespace MyWebSite.Controllers
         [HttpGet]
         public async Task<User?> Get([FromQuery] string userName, [FromQuery] string code)
         {
-            _logger.LogInformation("user" + userName + "failed to log in");
-            try
-            {
+            //try
+            //{
                 var user = await _iUserService.GetUsers(userName, code);
-                return user;
-            }
-            catch (Exception ex) {
-                _logger.LogError("Error Happenned!!!",ex.Message,ex.StackTrace);
-                return null;    
-            }
+                _logger.LogInformation("user" + userName + "failed to log in");
+
+            return user;
+            //}
+           // catch (Exception ex) {
+               // _logger.LogError("Error Happenned!!!",ex.Message,ex.StackTrace);
+                //return null;    
+            //}
         }
 
         // POST api/<UserController>
