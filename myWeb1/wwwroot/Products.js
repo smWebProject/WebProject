@@ -74,7 +74,7 @@ drawCategory = (category) => {
     const temp = document.getElementById("temp-category");
     const clone = temp.content.cloneNode(true);
     clone.querySelector(".OptionName").innerText = category.name;
-    clone.querySelector(".Count").innerText = category.products.length;
+    clone.querySelector(".Count").innerText = category.productsAmount;
     clone.querySelector(".opt").value = category.id;
     document.getElementById("categoryList").appendChild(clone);
 
@@ -121,7 +121,6 @@ removeProducts = () => {
         console.log(cards[0]);
         cards[0].remove();
     }
-
 }
 addToCart = (id) => {
     

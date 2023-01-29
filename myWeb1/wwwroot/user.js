@@ -2,12 +2,9 @@
 
     const userName =document.getElementById("userNameEnter").value;
     const code = document.getElementById("password").value;
-    alert(userName);
-    alert(code);
 
     const url = `Api/User?userName=${userName}&code=${code}`;
     const res = await fetch(url);
-    console.log(res);
     if (!res.ok)
         alert("Error! Try later please!");
     else if (res.status == 204) {
@@ -16,10 +13,8 @@
     }
     else {
         const data = await res.json();
-        alert("enter");
-        alert(JSON.stringify(data));
 
-        console.log(data[0]);
+        console.log(data);
         window.location.href = "login.html";
         window.sessionStorage.setItem("user", JSON.stringify(data));       
         window.location.href = "login.html";
@@ -53,7 +48,9 @@ register = async () => {
         return;
     }
     const data = await res.json();
-    alert(data.userName);
+    alert(data);
+    window.location.href = "user.html";
+
 }
 async function checkPassword() {
     const code = document.getElementById("code").value;
@@ -62,19 +59,13 @@ async function checkPassword() {
         method: 'POST',
         body: JSON.stringify(code)
     })
-     if (res.ok) { 
-         let res2 = await res.json()
-         document.getElementById("pass").value = res2;
-         await alert(res2);
-     }
+    if (res.ok) {
+        let res2 = await res.json()
+        document.getElementById("pass").value = res2;
+        await alert(res2);
+    }
+    else {
+        alert("password is not strong!")
+    }
      
 }
-/*    const res = await fetch("https://localhost:44390/api/user");
-    if (!res.ok)
-        alert("Error! Try later please!");
-    if (res.status == 204) {
-        alert("no data");
-        return;
-    }
-    const data = await res.json();
-    alert(data);*/

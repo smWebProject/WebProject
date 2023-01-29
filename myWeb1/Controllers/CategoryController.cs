@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service;
-using T_Repository;
+using Repository;
 using Entities;
+using AutoMapper;
+using DTO;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,44 +16,22 @@ namespace MyWeb.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _iCategoryService;
+        private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryService iCategoryService)
+        public CategoryController(ICategoryService iCategoryService, IMapper mapper)
         {
             _iCategoryService = iCategoryService;
+            _mapper = mapper;
+
         }
         // GET: api/<CategoryController>
         [HttpGet]
-        public async Task<IEnumerable<Category?>>Get()
+        public async Task<IEnumerable<CategoryDto>>Get()
         {
-
             var categories = await _iCategoryService.GetAllCategories();
-            return categories;
+            var categoryDTO = _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDto>>(categories);
+            return categoryDTO;
         }
 
-        // GET api/<CategoryController>/5
-        [HttpGet("{id}")]
-        //public async Task<Category?> Get([FromQuery] int?[] categoryIds)
-        //{
-        //    var category = await _iCategoryService.GetCategories(categoryIds);
-        //    return category;
-        //}
-
-        // POST api/<CategoryController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CategoryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CategoryController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

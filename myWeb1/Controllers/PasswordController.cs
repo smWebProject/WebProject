@@ -9,38 +9,16 @@ namespace MyWeb.Controllers
     [ApiController]
     public class PasswordController : ControllerBase
     {
-        // GET: api/<PasswordController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET api/<PasswordController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<PasswordController>
         [HttpPost]
-        public int Post([FromBody] string code)
+        public ActionResult<int> Post([FromBody] string code)
         {
             Result result = Zxcvbn.Core.EvaluatePassword(code);
-            return result.Score;
+            return result.Score<=2 ? BadRequest() : result.Score;
         }
 
-        // PUT api/<PasswordController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<PasswordController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

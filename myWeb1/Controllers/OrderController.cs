@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service;
-using T_Repository;
+using Repository;
 using Entities;
+using DTO;
+using AutoMapper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,43 +14,24 @@ namespace MyWeb.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _iOrderService;
+        private readonly IMapper _mapper;
 
-        public OrderController(IOrderService iOrderService)
+        public OrderController(IOrderService iOrderService, IMapper mapper)
         {
             _iOrderService = iOrderService;
-        }
-        // GET: api/<OrderController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+            _mapper = mapper;
 
-        // GET api/<OrderController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST api/<OrderController>
         [HttpPost]
-        public async Task<Order> Post([FromBody] Order order)
+        public async Task<Order> Post([FromBody] OrderDto orderDto)
         {
+            var order = _mapper.Map<OrderDto, Order>(orderDto);
             Order orderRes = await _iOrderService.AddOrder(order);
             return orderRes;
         }
 
-        // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<OrderController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

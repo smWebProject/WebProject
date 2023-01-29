@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities;
 
-namespace T_Repository
+namespace Repository
 {
     public class CategoryRepository:ICategoryRepository
     {

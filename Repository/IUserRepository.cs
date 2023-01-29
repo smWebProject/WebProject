@@ -1,4 +1,4 @@
-﻿namespace T_Repository
+﻿namespace Repository
 {
     using Entities;
 

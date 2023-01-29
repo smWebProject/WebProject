@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
-namespace Entities
+namespace DTO
 {
-    public partial class Order
+    public class OrderDto
     {
-        public Order()
+        public OrderDto()
         {
             OrderItems = new HashSet<OrderItem>();
             Date = DateTime.UtcNow.ToLocalTime();
@@ -15,9 +18,8 @@ namespace Entities
 
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public int Price { get; set; } 
+        public int Price { get; set; }
         public int UserId { get; set; }
-        public virtual User  ? User { get; set; } = null!;
-        public virtual ICollection<OrderItem>  OrderItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

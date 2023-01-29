@@ -4,58 +4,60 @@ using Entities;
 
 namespace MyWebSite.Controllers
 {
+    using AutoMapper;
+    using DTO;
+    using MyWeb;
     using Service;
-    using T_Repository;
+    using Repository;
 
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUserService _iUserService;
-        ILogger<UserController> _logger;    
-        public UserController(IUserService x, ILogger<UserController> logger)
+        ILogger<UserController> _logger;
+        private readonly IMapper _mapper;
+
+        public UserController(IUserService x, ILogger<UserController> logger, IMapper mapper)
         {
             _iUserService = x;
-            _logger = logger;   
+            _logger = logger;
+            _mapper = mapper;
+
         }
 
         // GET: api/<UserController>
         [HttpGet]
-        public async Task<User?> Get([FromQuery] string userName, [FromQuery] string code)
+        public async Task<UserDTOwithoutPassword> Get([FromQuery] string userName, [FromQuery] string code)
         {
-            //try
-            //{
                 var user = await _iUserService.GetUsers(userName, code);
+                var userDTOwithoutPassword = _mapper.Map<User, UserDTOwithoutPassword>(user);
                 _logger.LogInformation("user" + userName + "failed to log in");
+                return userDTOwithoutPassword;
 
-            return user;
-            //}
-           // catch (Exception ex) {
-               // _logger.LogError("Error Happenned!!!",ex.Message,ex.StackTrace);
-                //return null;    
-            //}
-        }
+}
 
         // POST api/<UserController>
         [HttpPost]
-        public async Task<User> Post([FromBody] User user)
+        public async Task<UserDTOwithoutPassword> Post([FromBody] UserDto userDTO)
         {
-            User resUser = await _iUserService.AddUser(user);
-            return resUser;
+            
+            var user = _mapper.Map<UserDto, User>(userDTO);
+            User backedUser = await _iUserService.AddUser(user);
+            var userDTOwithoutPassword = _mapper.Map<User, UserDTOwithoutPassword>(backedUser);
+            return userDTOwithoutPassword;
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User updateduser)
+        public void Put(int id, [FromBody] UserDto updateduserDTO)
         {
-            _iUserService.UpdateUser(id, updateduser);
+            var user = _mapper.Map<UserDto, User>(updateduserDTO);
+            _iUserService.UpdateUser(id, user);
         }
 
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
+       
     }
 }
 

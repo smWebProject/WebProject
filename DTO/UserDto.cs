@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Entities
+namespace DTO
 {
-    public partial class User
+    public class UserDto
     {
-        public User()
-        {
-            Orders = new HashSet<Order>();
-        }
-
         public int Id { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string UserName { get; set; } = null!;
         public string Code { get; set; } = null!;
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }

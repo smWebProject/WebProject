@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Entities;
 
-namespace T_Repository
+namespace Repository
 {
     public partial class WebSiteContext : DbContext
     {

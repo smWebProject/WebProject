@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Entities;
 
-namespace T_Repository
+namespace Repository
 {
     public class UserRepository : IUserRepository
     {
