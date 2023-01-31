@@ -62,7 +62,7 @@ async function checkPassword() {
     if (res.ok) {
         let res2 = await res.json()
         document.getElementById("pass").value = res2;
-        await alert(res2);
+        await register();
     }
     else {
         alert("password is not strong!")

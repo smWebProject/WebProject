@@ -30,7 +30,9 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.UseErrorHandlingMiddleware();
-//app.UseCacheMiddleware();
+app.UseCacheMiddleware();
+
+
 
 app.UseRating();
 if (app.Environment.IsDevelopment())
