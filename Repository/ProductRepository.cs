@@ -23,7 +23,15 @@ namespace Repository
              && ((categoryIds.Length == 0) ? (true) : (categoryIds.Contains(product.CategoryId)))
              && ((price_to == null) ? (true) : (product.Price <= price_to))).OrderBy(product => orderBy);
                 Console.WriteLine(qurey);
-
+                List<Product> products = qurey.ToList();
+                return products.ToArray();
+            }
+        }
+        public  Product[] GetProductsByIDs( int[]? ProductIds)
+        {
+            {
+                var qurey = _context.Products.Where(product => ProductIds.Contains(product.Id));
+                Console.WriteLine(qurey);
                 List<Product> products = qurey.ToList();
                 return products.ToArray();
             }

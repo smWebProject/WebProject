@@ -6,7 +6,7 @@ using Service;
 using Repository;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("MiriHome");
+var connectionString = builder.Configuration.GetConnectionString("ShulamitHome");
 builder.Host.UseNLog();
 // Add services to the container.
 builder.Services.AddDbContext<WebSiteContext>(option => option.UseSqlServer(connectionString));

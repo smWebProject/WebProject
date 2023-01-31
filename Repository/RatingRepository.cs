@@ -36,7 +36,7 @@ namespace Repository
         //}
         public async Task EnterRating(Rating rating)
         {
-            var connectionString = _configuration.GetConnectionString("MiriHome");
+            var connectionString = _configuration.GetConnectionString("ShulamitHome");
             var queryString = "INSERT INTO [dbo].[rating] ([HOST],[METHOD],[PATH],[REFERER],[USER_AGENT],[Record_Date])" +
             "VALUES(@HOST,@Method,@Path,@Referer,@UserAgent,@RecordDate)";
             using (SqlConnection connection = new SqlConnection(connectionString))

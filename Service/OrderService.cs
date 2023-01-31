@@ -11,23 +11,30 @@ namespace Service
     public class OrderService:IOrderService
     {
         private readonly IOrderRepository _iOrderRepository;
-        private readonly IProductService _productService;
-        public OrderService(IOrderRepository iOrderRepository, IProductService productService, WebSiteContext webSiteContext)
+        private readonly IProductRepository _productRepository;
+        public OrderService(IOrderRepository iOrderRepository, IProductRepository productRepository, WebSiteContext webSiteContext)
         {
             _iOrderRepository = iOrderRepository;
-            _productService = productService;
+            _productRepository = productRepository;
         }
 
         public async Task<Order> AddOrder(Order order)
         {
-            
-            //var products = _productService.GetProducts();
-            var sum = 0;
-            var arr = order.OrderItems.ToArray();
-            for (int i = 0; i < arr.Length; i++)
+            List<int>productIds=new List<int>();
+            var orderItems = order.OrderItems.ToArray();
+            for (int i = 0; i < orderItems.Length; i++)
             {
-                sum += arr[i].Product.Price;
+                productIds.Add(orderItems[i].ProductId);
             }
+            var products= new Product[order.OrderItems.Count];
+            products= _productRepository.GetProductsByIDs(productIds.ToArray());
+            var sum = 0;
+            for (int i = 0; i < products.Length; i++)
+            {
+
+               sum += (products[i].Price) * (orderItems[i].Amount);
+            }
+            order.Price = sum;
             Order orderRes=await _iOrderRepository.AddOrder(order);
             if (orderRes != null)
                 return orderRes;
