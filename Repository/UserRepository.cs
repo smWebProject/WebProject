@@ -30,12 +30,11 @@ namespace Repository
             return user;
 
         }
-        public void UpdateUser(int id, User updatedUser)
+        public async Task UpdateUser(int id, User updatedUser)
         {
-            var user =  _context.Users.Find(id);
-            if (user == null) return;
-            _context.Entry(user).CurrentValues.SetValues(updatedUser);
-             _context.SaveChanges();
+            _context.Users.Update(updatedUser);
+            await _context.SaveChangesAsync();
+            return;
         }
 
     }

@@ -23,12 +23,6 @@ namespace Service
                 return categories;
             return null;
         }
-        //public async Task<Category?> GetCategories(int?[] categoryIds)
-        //{
-        //    var category = await _iCategoryRepository.GetCategories(categoryIds);
-        //    if (category != null)
-        //        return category;
-        //    return null;
-        //}
+
     }
 }

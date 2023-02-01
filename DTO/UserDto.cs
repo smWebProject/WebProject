@@ -11,9 +11,9 @@ namespace DTO
     {
 
         public int Id { get; set; }
-        [StringLength(8)]
+        [StringLength(20)]
         public string FirstName { get; set; } = null!;
-        [StringLength(8)]
+        [StringLength(20)]
         public string LastName { get; set; } = null!;
         [EmailAddress]
         public string UserName { get; set; } = null!;

@@ -15,10 +15,8 @@ updateUser = async () => {
     const firstName = document.getElementById("firstName").value;
     const lastName = document.getElementById("lastName").value;
     const code = document.getElementById("code").value;
-    console.log(code);
     const data = window.sessionStorage.getItem("user");
     jsonData = JSON.parse(data);
-    console.log(jsonData);
     const user = {
         "id": jsonData.id,
         "FirstName": firstName,
@@ -32,11 +30,9 @@ updateUser = async () => {
         body: JSON.stringify(user)
     })
 
-    alert("update");
-
+    alert("user was updated");
 
 }
 goToProducts = () => {
     window.location.href = "Products.html";
-
 }

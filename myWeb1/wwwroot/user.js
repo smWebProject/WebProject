@@ -13,8 +13,6 @@
     }
     else {
         const data = await res.json();
-
-        console.log(data);
         window.location.href = "login.html";
         window.sessionStorage.setItem("user", JSON.stringify(data));       
         window.location.href = "login.html";

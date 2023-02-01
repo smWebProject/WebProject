@@ -3,12 +3,9 @@
     const selectedProducts = JSON.parse(selectedProductsJson);
     drawSelectedProducts(selectedProducts)
     total(selectedProducts)
-    console.log(selectedProducts);
 }
 drawSelectedProducts = (selectedProducts) => {
-    console.log(selectedProducts)
     for (let i = 0; i < selectedProducts.length; i++) {
-        console.log(selectedProducts[i]);
         drawSelectedProduct(selectedProducts[i],i);
     }
 }
@@ -17,7 +14,6 @@ drawSelectedProduct = (selectedProduct,position) => {
     const clone = temp.content.cloneNode(true);
     let imageurl = "/images/" + selectedProduct.imageUrl;
     const stringImageUrl = JSON.stringify(imageurl);
-    console.log(JSON.stringify(imageurl));
     clone.querySelector(".image").style.backgroundImage = `url(${ stringImageUrl })`;
     clone.querySelector(".itemName").innerText = selectedProduct.name;
     clone.querySelector(".itemNumber").innerText = selectedProduct.id;
@@ -84,7 +80,7 @@ placeOrder = async () => {
         alert("no data");
         return;
     }
-    const data = await res.json();
+    await res.json();
     alert("the order complited");
 
 }
@@ -92,7 +88,6 @@ placeOrder = async () => {
 removeSelectedProduct = (value) => {
     orderItemsJson = sessionStorage.getItem("selectedProducts");
     orderItemsParse = JSON.parse(orderItemsJson);
-    console.log(orderItemsParse)
     orderItemsParse.splice(value, value + 1);
     sessionStorage.setItem("selectedProducts", JSON.stringify(orderItemsParse))
     removeSelectedProducts();
@@ -100,9 +95,7 @@ removeSelectedProduct = (value) => {
 }
 removeSelectedProducts = () => {
     const selectedProducts = document.getElementsByClassName("item-row");
-    console.log(selectedProducts);
     for (let i = selectedProducts.length; i > 0; i--) {
-        console.log(selectedProducts[0]);
         selectedProducts[0].remove();
     }
 

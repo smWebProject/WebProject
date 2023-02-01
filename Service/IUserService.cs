@@ -6,6 +6,6 @@ namespace Service
     {
         Task<User> AddUser(User user);
         Task<User?> GetUsers(string userName, string code);
-        void UpdateUser(int id, User updatedUser);
+        Task UpdateUser(int id, User updatedUser);
     }
 }

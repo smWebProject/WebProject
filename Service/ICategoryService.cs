@@ -12,6 +12,5 @@ namespace Service
     {
         Task<IEnumerable<Category?>> GetAllCategories();
 
-        //Task<Category?> GetCategories(int?[] categoryIds);
     }
 }

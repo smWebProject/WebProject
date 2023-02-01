@@ -23,17 +23,6 @@ namespace Repository
         {
             _configuration=configuration;
         }
-        //private static void CreateCommand(string queryString, string connectionString)
-        //{
-        //    using(SqlConnection connection = new SqlConnection(connectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand(queryString, connection))
-        //        {
-        //            command.Connection.Open();
-        //            command.ExecuteNonQuery();
-        //        }                
-        //    }       
-        //}
         public async Task EnterRating(Rating rating)
         {
             var connectionString = _configuration.GetConnectionString("ShulamitHome");

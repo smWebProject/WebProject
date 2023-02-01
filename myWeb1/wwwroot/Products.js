@@ -8,15 +8,12 @@ checkCart = () => {
     if (selectedProductsJson) {
         let length = JSON.parse(selectedProductsJson).length;
         document.getElementById("ItemsCountText").innerText = length;
-        console.log(document.getElementById("ItemsCountText").innerText);
-
     }
 }
 
 getProducts = async () => {
     const url = "Api/Product";
     const res = await fetch(url);
-    console.log(res);
     if (!res.ok)
         alert("Error! Try later please!");
     else if (res.status == 204) {
@@ -25,7 +22,6 @@ getProducts = async () => {
     }
     else {
         const products = await res.json();
-        console.log(products);
         sessionStorage.setItem("products", JSON.stringify(products));
         drawProducts(products);
     }
@@ -42,7 +38,6 @@ getCategories = async () => {
     }
     else {
         const categories = await res.json();
-        console.log(categories);
         drawCategories(categories);
     }
 }
@@ -88,7 +83,6 @@ filterProducts = async () => {
     const limit = 20;
     const direction = "ASC";
     const orderBy = "price";
-    console.log(categoryList[0].checked);
     let categoryIds = "";
     for (let i = 0; i < categoryList.length; i++) {
         if (categoryList[i].checked) {
@@ -107,7 +101,6 @@ filterProducts = async () => {
     }
     else {
         const data = await res.json();
-        console.log(data.length);
         removeProducts();
         drawProducts(data);
     }
@@ -118,7 +111,6 @@ removeProducts = () => {
     const cards = document.getElementsByClassName("card");
     console.log(cards);
     for (let i = cards.length; i > 0; i--) {
-        console.log(cards[0]);
         cards[0].remove();
     }
 }
@@ -130,15 +122,11 @@ addToCart = (id) => {
     let counter = 0;
     for (let i = 0; i < products.length; i++) {
         if (products[i].id == id) {
-            console.log(products[i])
             if (sessionStorage.getItem("selectedProducts")) {
                 const allSelectedProducts1 = JSON.parse(sessionStorage.getItem("selectedProducts"));
-                console.log(allSelectedProducts1)
                 allSelectedProducts1.push(products[i]);
-                console.log(allSelectedProducts1)
                 counter = allSelectedProducts1.length;
                 sessionStorage.setItem("selectedProducts", JSON.stringify(allSelectedProducts1));
-                console.log(allSelectedProducts1)
             }
             else { 
                 let allSelectedProducts = []
@@ -152,5 +140,4 @@ addToCart = (id) => {
     document.getElementById("ItemsCountText").innerHTML = counter;
 
 }
-//document.addEventListener("load", load());
 

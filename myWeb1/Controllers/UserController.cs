@@ -50,10 +50,11 @@ namespace MyWebSite.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] UserDto updateduserDTO)
+        public async Task Put(int id, [FromBody] UserDto updateduserDTO)
         {
             var user = _mapper.Map<UserDto, User>(updateduserDTO);
             _iUserService.UpdateUser(id, user);
+            return;
         }
 
 

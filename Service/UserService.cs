@@ -31,9 +31,10 @@
             return null;
 
         }
-        public void UpdateUser(int id, User updatedUser)
+        public async Task UpdateUser(int id, User updatedUser)
         {
             _iUserRepository.UpdateUser(id, updatedUser);
+            return;
         }
 
 
