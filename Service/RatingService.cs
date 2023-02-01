@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Repository;
-
 namespace Service
 {
     public class RatingService: IRatingService

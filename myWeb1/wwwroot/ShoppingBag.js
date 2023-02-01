@@ -33,55 +33,61 @@ total = (selectedProducts) => {
 
 }
 placeOrder = async () => {
-    let price = document.getElementById("totalAmount").innerText;
-    userJson = sessionStorage.getItem("user");
-    userParse = JSON.parse(userJson);
-    let userId = userParse.id;
-    orderItems = [];
-    orderItemsJson = sessionStorage.getItem("selectedProducts");
-    orderItemsParse = JSON.parse(orderItemsJson);
-    let maxId = 0;
-    let countItems = [];
-    for (let i = 0; i < orderItemsParse.length; i++) {
-        if (orderItemsParse[i].id > maxId)
-            maxId = orderItemsParse[i].id;
-    }
-    for (let i = 0; i <= maxId; i++) {
-        countItems.push(0);
-    }
-    console.log(countItems);
-    for (let i = 0; i < orderItemsParse.length; i++) {
-        countItems[orderItemsParse[i].id]++;
-    }
-    for (let i = 0; i < countItems.length; i++) {
-        if (countItems[i] != 0) {
-            let orderItem = {
-                "ProductId":i,
-                "Amount": countItems[i]
-            }
-            orderItems.push(orderItem);
+    if (sessionStorage.getItem("user") != null) {
+        let price = document.getElementById("totalAmount").innerText;
+        userJson = sessionStorage.getItem("user");
+        userParse = JSON.parse(userJson);
+        let userId = userParse.id;
+        orderItems = [];
+        orderItemsJson = sessionStorage.getItem("selectedProducts");
+        orderItemsParse = JSON.parse(orderItemsJson);
+        let maxId = 0;
+        let countItems = [];
+        for (let i = 0; i < orderItemsParse.length; i++) {
+            if (orderItemsParse[i].id > maxId)
+                maxId = orderItemsParse[i].id;
         }
-    }
-    const order = {
-        "Date": new Date(),
-        "Price": price,
-        "UserId": userId,
-        "OrderItems":orderItems
-    }
-    const res = await fetch("https://localhost:44328/api/Order", {
-        headers: { "content-type": "application/json;" },
-        method: 'POST',
-        body: JSON.stringify(order)
-    })
+        for (let i = 0; i <= maxId; i++) {
+            countItems.push(0);
+        }
+        console.log(countItems);
+        for (let i = 0; i < orderItemsParse.length; i++) {
+            countItems[orderItemsParse[i].id]++;
+        }
+        for (let i = 0; i < countItems.length; i++) {
+            if (countItems[i] != 0) {
+                let orderItem = {
+                    "ProductId": i,
+                    "Amount": countItems[i]
+                }
+                orderItems.push(orderItem);
+            }
+        }
+        const order = {
+            "Date": new Date(),
+            "Price": price,
+            "UserId": userId,
+            "OrderItems": orderItems
+        }
+        const res = await fetch("https://localhost:44328/api/Order", {
+            headers: { "content-type": "application/json;" },
+            method: 'POST',
+            body: JSON.stringify(order)
+        })
 
-    if (!res.ok)
-        alert("Error! Try later please!");
-    if (res.status == 204) {
-        alert("no data");
-        return;
+        if (!res.ok)
+            alert("Error! Try later please!");
+        if (res.status == 204) {
+            alert("no data");
+            return;
+        }
+        await res.json();
+        alert("the order complited");
     }
-    await res.json();
-    alert("the order complited");
+    else {
+        window.location.href = "user.html";
+
+    }
 
 }
 
