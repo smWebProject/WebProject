@@ -14,8 +14,8 @@ I gave special attention to scaling the site by using async/await and implementi
 Error handling is taken care of by logging with NLOG. 
 All errors should be caught using a middleware for that.
 
-Configuration file (appsettings.json) for environment variables
-.I added a rating middleware to record all site entries. 
+Configuration file (appsettings.json) for environment variables.
+I added a rating middleware to record all site entries. 
 The code was written following the "Clean Code" guide.
 
 Thank you for checking out my project!
