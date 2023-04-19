@@ -81,8 +81,9 @@ placeOrder = async () => {
             alert("no data");
             return;
         }
-        await res.json();
         alert("the order complited");
+        window.sessionStorage.removeItem("selectedProducts");
+
     }
     else {
         window.location.href = "user.html";

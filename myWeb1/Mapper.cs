@@ -12,7 +12,6 @@ namespace MyWeb
             CreateMap<Category, CategoryDto>().ForMember(dest => dest.ProductsAmount, src => src.MapFrom(c => c.Products.Count())).ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserDTOwithoutPassword>().ReverseMap();
-            CreateMap<Order, OrderDto>().ReverseMap();
         }
     }
 }
